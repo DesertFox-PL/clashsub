@@ -1,0 +1,71 @@
+proxies:
+  - name: "🇯🇵 日本节点1-443-WS-TLS"
+    type: vless
+    server: 162.159.129.51
+    port: 443
+    uuid: fe9d2a99-0d1d-44ed-947a-1ce3abd190c5
+    cipher: none
+    udp: true
+    tls: true
+    flow: ""
+    skip-cert-verify: true
+    servername: aa.plnb666.dpdns.org
+    network: ws
+    ws-opts:
+      path: "/?ed=2048"
+      headers:
+        Host: aa.plnb666.dpdns.org
+
+  - name: "🇯🇵 日本节点2-443-WS-TLS"
+    type: vless
+    server: 162.159.137.11
+    port: 443
+    uuid: fe9d2a99-0d1d-44ed-947a-1ce3abd190c5
+    cipher: none
+    udp: true
+    tls: true
+    flow: ""
+    skip-cert-verify: true
+    servername: aa.plnb666.dpdns.org
+    network: ws
+    ws-opts:
+      path: "/?ed=2048"
+      headers:
+        Host: aa.plnb666.dpdns.org
+
+  - name: "🇯🇵 日本节点3-443-WS-TLS"
+    type: vless
+    server: 162.159.134.26
+    port: 443
+    uuid: fe9d2a99-0d1d-44ed-947a-1ce3abd190c5
+    cipher: none
+    udp: true
+    tls: true
+    flow: ""
+    skip-cert-verify: true
+    servername: aa.plnb666.dpdns.org
+    network: ws
+    ws-opts:
+      path: "/?ed=2048"
+      headers:
+        Host: aa.plnb666.dpdns.org
+
+
+proxy-groups:
+  - name: "🚀 全局代理"
+    type: select
+    proxies:
+      - "🇯🇵 日本节点1-443-WS-TLS"
+      - "🇯🇵 日本节点2-443-WS-TLS"
+      - "🇯🇵 日本节点3-443-WS-TLS"
+      - DIRECT
+
+  - name: "🌐 规则代理"
+    type: select
+    proxies:
+      - "🚀 全局代理"
+      - DIRECT
+
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,🌐 规则代理
